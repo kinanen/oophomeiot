@@ -65,6 +65,17 @@ namespace HomeIOT
 			return appliances;
         }
 
+		internal IEnumerable<string> GetAllBlinds()
+        {
+            List<String> blinds = new();
+            foreach (Blinds b in Blinds)
+            {
+                blinds.Add($"{Name} Blinds on {b.ToString()}");
+            }
+			return blinds;
+        }
+
+
 		public override string ToString(){
 			return Name;
 		}

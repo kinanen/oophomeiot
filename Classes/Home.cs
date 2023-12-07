@@ -56,18 +56,27 @@ namespace HomeIOT
 		{
             List<String> appliances = new();
 
-			// Add home applications with no Special room set
 			foreach(Applience appliance in Appliences)
 			{
 				appliances.Add(appliance.ToString()) ;
 			}
-			// Add all appliances from all rooms
+
             foreach (Room room in Rooms)
             {
                 appliances.AddRange(room.GetAllAppliances());
             }
             return appliances;
         }
+
+		public List<String> GetAllBlinds()
+		{
+			List<String> blinds = new();
+			foreach (Room room in Rooms)
+			{
+				blinds.AddRange(room.GetAllBlinds());
+			}
+			return blinds;
+		}
 
 		public void RemoveRoom(Room room)
 		{
@@ -84,6 +93,8 @@ namespace HomeIOT
 			status.Add($"Rooms: {String.Join(", ", Rooms)}");
 			status.Add($"Doors: {String.Join(", ", Doors)}");
 			status.Add($"Appliances: {String.Join(", ", GetAllAppliances())}");	
+			status.Add($"Lights: {String.Join(", ", GetAllLights())}");
+			status.Add($"Blinds: {String.Join(", ", GetAllBlinds())}");
 
 			return status;
 		}

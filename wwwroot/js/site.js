@@ -23,20 +23,22 @@ function addForm(selectedValue) {
     var form = document.getElementById('new');
 
     switch (selectedValue) {
-        case 'room': addRoom();
+        case 'room': 
+            addRoom();
             break;
         case 'applience': addAppliance();
             break;
-        case 'door': addDoor();
+        case 'door': 
+            addDoor();
             break;
-        case 'heater':
-            form.innerHTML += '<select name="heaterName"><option value="heater1">Heater 1</option><option value="heater2">Heater 2</option></select>';
+        case 'heater': 
+            addHeater();
             break;
         case 'light':
-            form.innerHTML += '<input type="select" name="lightName" placeholder="Room">';
+            addLight();
             break;
         case 'blinds':
-            form.innerHTML += '<input type="select" name="Room" placeholder="Room">';
+            addBlinds();
             break;
     }
 }
@@ -87,17 +89,18 @@ function addRoom() {
 
 async function addAppliance() {
     var form = document.getElementById('new');
-    
+
     var rooms;
 
     await fetch('/Home/GetRooms')
-    .then(response => response.json())
-    .then(data => {
-        rooms = data;
-    });
+        .then(response => response.json())
+        .then(data => {
+            rooms = data;
+        });
+
     form.innerHTML += '<select name="roomSelect" id="roomSelect">';
     var roomSelect = document.getElementById('roomSelect');
-    rooms.forEach(function(room) {
+    rooms.forEach(function (room) {
         roomSelect.innerHTML += '<option value="' + room + '">' + room + '</option>';
     })
     roomSelect.innerHTML += '<option value="HouseAppliance">Portable Device</option>';
@@ -122,7 +125,7 @@ async function addAppliance() {
         var roomName = form.roomSelect.value;
         var applianceType = form.applianceType.value;
         var applianceName = form.ApplianceName.value;
-        var url = '/Home/AddAppliance?roomName=' + roomName + '&applianceType=' + applianceType + '&applianceName=' + applianceName;
+        var url = '/Applience/AddAppliance?roomName=' + roomName + '&applianceType=' + applianceType + '&applianceName=' + applianceName;
         var newAppliance = {
             Room: roomName,
             Type: applianceType
@@ -160,7 +163,7 @@ function addDoor() {
         event.preventDefault();
         var form = document.getElementById('new');
         var doorName = form.doorName.value;
-        var url = '/Home/AddDoor?doorName=' + doorName;
+        var url = '/Door/AddDoor?doorName=' + doorName;
         var newDoor = {
             Name: doorName
         };
@@ -179,6 +182,176 @@ function addDoor() {
                 form.innerHTML = '';
             });
     })
+
+    document.getElementById('cancel').addEventListener('click', () => {
+        event.preventDefault();
+        form.innerHTML = '';
+    });
+}
+
+async function addHeater() {
+    var form = document.getElementById('new');
+
+    var rooms;
+
+    await fetch('/Home/GetRoomsWOHeater')
+        .then(response => response.json())
+        .then(data => {
+            rooms = data;
+        });
+
+    form.innerHTML += '<select name="roomSelect" id="roomSelect">';
+    
+    var roomSelect = document.getElementById('roomSelect');
+    rooms.forEach(function (room) {
+        roomSelect.innerHTML += '<option value="' + room + '">' + room + '</option>';
+    })
+
+    form.innerHTML += '<button id="addHeater">submit</button>';
+    form.innerHTML += '<button id="cancel">cancel</button>';
+
+    document.getElementById('addHeater').addEventListener('click', () => {
+        event.preventDefault();
+        var form = document.getElementById('new');
+        var roomName = form.roomSelect.value;
+        var url = '/Heater/AddHeater?roomName=' + roomName;
+        var newHeater = {
+            Room: roomName,
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newHeater),
+        })
+            .then(response => response.json())
+            .then(data => {
+                const statusElement = document.getElementById('status');
+                statusElement.innerHTML = data.join('<br>');
+                form.innerHTML = '';
+            });
+    });
+
+    document.getElementById('cancel').addEventListener('click', () => {
+        event.preventDefault();
+        form.innerHTML = '';
+    });
+}
+
+async function addLight() {
+    var form = document.getElementById('new');
+
+    var rooms;
+
+    await fetch('/Home/GetRooms')
+        .then(response => response.json())
+        .then(data => {
+            rooms = data;
+        });
+
+    form.innerHTML += '<select name="roomSelect" id="roomSelect">';
+    var roomSelect = document.getElementById('roomSelect');
+    rooms.forEach(function (room) {
+        roomSelect.innerHTML += '<option value="' + room + '">' + room + '</option>';
+    })
+    form.innerHTML += '<br/>';
+
+    form.innerHTML += '<select name="lightType" id="lightType">';
+    var appTypeSelect = document.getElementById('lightType');
+    appTypeSelect.innerHTML += '<option value="light">Non Dimmable</option>';
+    appTypeSelect.innerHTML += '<option value="dimmable">Dimmable</option>';
+    form.innerHTML += '<br/>';
+
+    form.innerHTML += '<input type="text" name="lightName" placeholder="Light name">';
+    form.innerHTML += '<br/>';
+
+    form.innerHTML += '<button id="addLight">submit</button>';
+    form.innerHTML += '<button id="cancel">cancel</button>';
+
+    document.getElementById('addLight').addEventListener('click', () => {
+        event.preventDefault();
+        var form = document.getElementById('new');
+        var roomName = form.roomSelect.value;
+        var lightType = form.lightType.value;
+        var lightName = form.lightName.value;
+        var url = '/Light/AddLight?roomName=' + roomName + '&lightType=' + lightType + '&lightName=' + lightName;
+        var newLight = {
+            Room: roomName,
+            Type: lightType
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newLight),
+        })
+            .then(response => response.json())
+            .then(data => {
+                const statusElement = document.getElementById('status');
+                statusElement.innerHTML = data.join('<br>');
+                form.innerHTML = '';
+            });
+    });
+
+    document.getElementById('cancel').addEventListener('click', () => {
+        event.preventDefault();
+        form.innerHTML = '';
+    });
+}
+
+async function addBlinds() {
+    var form = document.getElementById('new');
+
+    var rooms;
+
+    await fetch('/Home/GetRooms')
+        .then(response => response.json())
+        .then(data => {
+            rooms = data;
+        });
+
+    form.innerHTML += '<select name="roomSelect" id="roomSelect">';
+    var roomSelect = document.getElementById('roomSelect');
+    rooms.forEach(function (room) {
+        roomSelect.innerHTML += '<option value="' + room + '">' + room + '</option>';
+    })
+    form.innerHTML += '<br/>';
+
+    form.innerHTML += '<input type="text" name="WindowName" placeholder="Window">';
+    form.innerHTML += '<br/>';
+
+    form.innerHTML += '<button id="addBlinds">submit</button>';
+    form.innerHTML += '<button id="cancel">cancel</button>';
+
+    document.getElementById('addBlinds').addEventListener('click', () => {
+        event.preventDefault();
+        var form = document.getElementById('new');
+        var roomName = form.roomSelect.value;
+        var windowName = form.WindowName.value;
+        var url = '/Blinds/AddBlinds?roomName=' + roomName +'&windowName=' + windowName;
+        var newAppliance = {
+            Room: roomName,
+            WindowName: windowName
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newAppliance),
+        })
+            .then(response => response.json())
+            .then(data => {
+                const statusElement = document.getElementById('status');
+                statusElement.innerHTML = data.join('<br>');
+                form.innerHTML = '';
+            });
+    });
 
     document.getElementById('cancel').addEventListener('click', () => {
         event.preventDefault();
