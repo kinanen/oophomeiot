@@ -38,6 +38,25 @@ public class HomeController : Controller
 
     }
 
+     public IActionResult GetDoors()
+    {
+        List<string> doors = new();
+        foreach (Door d in _demoHome.Doors)
+        {
+            doors.Add(d.Name);
+        }
+        return Json(doors);
+
+    }
+
+     public IActionResult GetHeaters()
+    {
+        List<string> heaters = _demoHome.GetAllHeaters();
+
+        return Json(heaters);
+
+    }
+
     public IActionResult GetRoomsWOHeater()
     {
         List<string> rooms = new();

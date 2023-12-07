@@ -9,6 +9,12 @@ public class DoorController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly Home _demoHome;
 
+    public DoorController(ILogger<HomeController> logger, Home demoHome)
+    {
+        _logger = logger;
+        _demoHome = demoHome;
+    }
+
     [HttpPost]
     public IActionResult AddDoor(string doorName)
     {
@@ -17,7 +23,8 @@ public class DoorController : Controller
         return Json(status);
     }
 
-    public IActionResult lockDoor(string doorName)
+    [HttpPost]
+    public IActionResult LockDoor(string doorName)
     {
         Door door = _demoHome.Doors.Find(r => r.Name == doorName);
         door.Lock();
@@ -25,6 +32,7 @@ public class DoorController : Controller
         return Json(status);
     }
 
+    [HttpPost]
     public IActionResult UnlockDoor(string doorName)
     {
         Door door = _demoHome.Doors.Find(r => r.Name == doorName);

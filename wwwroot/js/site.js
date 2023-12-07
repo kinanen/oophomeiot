@@ -19,7 +19,7 @@ fetch('/Home/GetTemperatures')
 
 document.getElementById('addSelected').addEventListener('click', addSelected);
 
-function addForm(selectedValue) {
+function addFormAdd(selectedValue) {
     var form = document.getElementById('new');
 
     switch (selectedValue) {
@@ -47,7 +47,7 @@ function addSelected() {
     event.preventDefault();
     var selectElement = document.getElementById('class-select');
     var selectedValue = selectElement.value;
-    addForm(selectedValue);
+    addFormAdd(selectedValue);
 }
 
 function addRoom() {
@@ -358,3 +358,163 @@ async function addBlinds() {
         form.innerHTML = '';
     });
 }
+
+function accessDevice(){
+    var form = document.getElementById('access');
+
+}
+
+document.getElementById('accessSelected').addEventListener('click', accessSelected);
+
+function addFormAccess(selectedValue) {
+    var form = document.getElementById('control');
+
+    switch (selectedValue) {
+        case 'applience': accessAppliance();
+            break;
+        case 'door': 
+            accessDoor();
+            break;
+        case 'heater': 
+            accessHeater();
+            break;
+        case 'light':
+            accessLights();
+            break;
+        case 'blinds':
+            addBlinds();
+            break;
+    }
+}
+
+function accessSelected() {
+    event.preventDefault();
+    var selectElement = document.getElementById('accessSelect');
+    var selectedValue = selectElement.value;
+    addFormAccess(selectedValue);
+}
+
+async function accessDoor() {
+    var divControl = document.getElementById('control');
+
+    var response = await fetch('/Home/GetDoors');
+    var doors = await response.json();
+
+    //PAINIKKEET EI TOIMI
+    doors.forEach(door => {
+        console.log(door);
+
+        var lockbutton = document.createElement('button');
+        lockbutton.id = `lockDoor${door}`;
+        lockbutton.textContent = `Lock ${door}`;
+
+        lockbutton.addEventListener('click', async () => {
+            var url = '/Door/LockDoor';
+            var data = { doorName: door };
+
+            var response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            console.log(response);
+        });
+
+        divControl.appendChild(lockbutton);
+
+        var unlockbutton = document.createElement('button');
+        unlockbutton.id = `unlockDoor${door}`;
+        unlockbutton.textContent = `Unlock ${door}`;
+
+        unlockbutton.addEventListener('click', async () => {
+            var url = '/Door/UnlockDoor';
+            var data = { doorName: door };
+
+            var response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            console.log(response);
+        });
+        divControl.appendChild(unlockbutton);
+    });
+
+
+}
+
+async function accessHeater(){
+    var divControl = document.getElementById('control');
+    var heaters;
+    await fetch('/Home/GetHeaters')
+        .then(response => response.json())
+        .then(data => {
+            heaters = data;
+            console.log(heaters);
+            });
+    var i = 1;
+    heaters.forEach(heater => {
+        console.log(heater);
+        var content = document.createElement('div');
+        content.id = `heater${i}`;
+        i++;
+        content.textContent = heater;
+        divControl.appendChild(content);
+
+        var onbutton = document.createElement('button');
+        onbutton.id = `onheater${i}`;
+        onbutton.textContent = `On`;
+        divControl.appendChild(onbutton);
+
+        var plusButton = document.createElement('button');
+        plusButton.id = `plusheater${i}`;
+        plusButton.textContent = `+`;
+        divControl.appendChild(plusButton);
+
+        var minusButton = document.createElement('button');
+        minusButton.id = `minusheater${i}`;
+        minusButton.textContent = `-`;
+        divControl.appendChild(minusButton);
+
+        var offbutton = document.createElement('button');
+        offbutton.id = `offheater${i}`;
+        offbutton.textContent = `Off`;
+        divControl.appendChild(offbutton);
+
+    });
+
+}
+
+async function getlightPerRoom(room)
+{
+    await fetch('/Room/GetLights?roomName=' + room) 
+    .then(response => response.json())
+    .then(data => {
+        light = data;
+        console.log(light);
+    });
+}
+
+async function accessLights(){
+    var divControl = document.getElementById('control');
+    var rooms;
+    var light;
+    await fetch('/Home/GetRooms')
+        .then(response => response.json())
+        .then(data => {
+            rooms = data;
+            console.log(rooms);
+            });
+
+
+    await rooms.forEach(room => {
+        getlightPerRoom(room);
+        });
+        
+}
+
+

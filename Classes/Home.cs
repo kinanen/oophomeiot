@@ -77,6 +77,19 @@ namespace HomeIOT
 			}
 			return blinds;
 		}
+		
+		public List<String> GetAllHeaters()
+		{
+			List<String> heaters = new();
+			foreach (Room room in Rooms)
+			{
+				if(room.Heater != null)
+				{
+				heaters.Add(room.Name +" "+ room.Heater.ToString());
+				}
+			}
+			return heaters;
+		}
 
 		public void RemoveRoom(Room room)
 		{

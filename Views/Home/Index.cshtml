@@ -1,17 +1,32 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="/css/site.css">
-    
-    
-</head>
-<body>
 
+
+</head>
+
+<body>
     <h1>Otso Kinanen Home IOT</h1>
     <div id="status"></div>
     <div id="temperature"></div>
+    <form id="Access">
+        <label for="accessSelect">Choose class to access </label>
+        <select name="access" id="accessSelect">
+            <option value="select">Select</option>
+            <option value="applience">Applienece</option>
+            <option value="door">Door</option>
+            <option value="heater">Heater</option>
+            <option value="light">Light</option>
+            <option value="blinds">Blinds</option>
+        </select>
+        <button id="accessSelected">Access</button>
+    </form>
+    <div id="control"></form>
+    </div>
     <form id="Add">
         <label for="class-select">Choose class to add </label>
         <select name="class" id="class-select">
@@ -28,4 +43,5 @@
     <script src="/js/site.js"></script>
     <form id="new">
     </form>
-</body> 
+
+</body>
