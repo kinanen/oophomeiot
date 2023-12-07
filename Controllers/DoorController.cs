@@ -17,5 +17,21 @@ public class DoorController : Controller
         return Json(status);
     }
 
+    public IActionResult lockDoor(string doorName)
+    {
+        Door door = _demoHome.Doors.Find(r => r.Name == doorName);
+        door.Lock();
+        var status = _demoHome.GetStatus();
+        return Json(status);
+    }
+
+    public IActionResult UnlockDoor(string doorName)
+    {
+        Door door = _demoHome.Doors.Find(r => r.Name == doorName);
+        door.Unlock();
+        var status = _demoHome.GetStatus();
+        return Json(status);
+    }
+
 
 }

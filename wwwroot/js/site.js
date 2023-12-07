@@ -61,7 +61,7 @@ function addRoom() {
         event.preventDefault();
         var form = document.getElementById('new');
         var roomName = form.roomName.value;
-        var url = '/Home/AddRoom?roomName=' + roomName;
+        var url = '/Room/AddRoom?roomName=' + roomName;
         var newRoom = {
             Name: roomName
         };

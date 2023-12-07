@@ -54,15 +54,6 @@ public class HomeController : Controller
         return Json(_demoHome);
     }
 
-    [HttpPost]
-    public IActionResult AddRoom(string roomName)
-    {
-        Room newRoom = new(roomName, _demoHome);
-        var status = _demoHome.GetStatus();
-        return Json(status);
-    }
-
-
     public IActionResult Index()
     {
         return View();

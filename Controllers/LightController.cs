@@ -14,8 +14,6 @@ public class LightController : Controller
         _demoHome = demoHome;
     }
 
-    
-    [HttpPost]
     [HttpPost]
     public IActionResult AddLight(string roomName, string lightType, string lightName)
     {
@@ -37,4 +35,41 @@ public class LightController : Controller
         var status = _demoHome.GetStatus();
         return Json(status);
     }
+
+    [HttpPost]
+    public IActionResult TurnOn(string roomName, string lightName)
+    {
+        Room room = _demoHome.Rooms.Find(r => r.Name == roomName);
+        Light light = room.Lights.Find(l => l.Name == lightName);
+
+        if(light.LightOn){
+            light.TurnLightOff();
+        }
+        else{
+            light.TurnLightOn();
+        }
+        var status = _demoHome.GetStatus();
+        return Json(status);
+
+    }
+
+
+    [HttpPost]
+    public IActionResult TurnOn(string roomName, string lightName, int dim)
+    {
+        Room room = _demoHome.Rooms.Find(r => r.Name == roomName);
+        Light light = room.Lights.Find(l => l.Name == lightName);
+        LightDimmable dimmableLight = (LightDimmable)light;
+        if(light is LightDimmable){
+            dimmableLight.TurnLightOn(dim);
+        }
+
+        var status = _demoHome.GetStatus();
+        return Json(status);
+
+    }
+
+
+
+
 }

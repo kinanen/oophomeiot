@@ -4,7 +4,7 @@ namespace HomeIOT
 	public class Blinds
 	{
 		private Room Room { get; set; }
-		private String Window { get; set; }
+		public String Window { get; set; }
 		private Boolean BlindsOpen { get; set; }
 		private int OpenPrecentage { set; get; }
 

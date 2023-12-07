@@ -19,7 +19,7 @@ namespace HomeIOT
             Locked = false;
         }
 
-        public void OpenLock()
+        public void Unlock()
         {
             //LOCK API HERE
             Locked = false;

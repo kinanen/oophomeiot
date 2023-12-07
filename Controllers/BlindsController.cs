@@ -23,4 +23,33 @@ public class BlindsController : Controller
         var status = _demoHome.GetStatus();
         return Json(status);
     }
+
+    [HttpPost]
+    public IActionResult Open(string roomName, string windowName)
+    {
+        Room room = _demoHome.Rooms.Find(r => r.Name == roomName);
+        room.Blinds.Find(b => b.Window == windowName).Open();
+        var status = _demoHome.GetStatus();
+        return Json(status);
+    }
+
+    [HttpPost]
+    public IActionResult Close(string roomName, string windowName)
+    {
+        Room room = _demoHome.Rooms.Find(r => r.Name == roomName);
+        room.Blinds.Find(b => b.Window == windowName).Close();
+        var status = _demoHome.GetStatus();
+        return Json(status);
+    }
+
+    [HttpPost]
+    public IActionResult SetPrecent(string roomName, string windowName, int precentage)
+    {
+        Room room = _demoHome.Rooms.Find(r => r.Name == roomName);
+        room.Blinds.Find(b => b.Window == windowName).SetBlinds(precentage);
+        var status = _demoHome.GetStatus();
+        return Json(status);
+    }
+
+
 }

@@ -40,9 +40,52 @@ public class ApplienceController : Controller
                     break;
             }
         }
-
-
         var status = _demoHome.GetStatus();
         return Json(status);
     }
+
+    [HttpPost]
+    public IActionResult Run(string roomName, string applianceName)
+    {
+        Applience applience = _demoHome.Appliences.Find(a => a.Name == applianceName);
+        if (applience != null)
+        {
+            applience.Run();
+        }
+
+        else
+        {
+            Room r = _demoHome.Rooms.Find(r => r.Name == roomName);
+            applience = r.Appliences.Find(a => a.Name == applianceName);
+            applience.Run();
+        }
+
+        var status = _demoHome.GetStatus();
+        return Json(status);
+
+    }
+
+    [HttpPost]
+    public IActionResult Stop(string roomName, string applianceName)
+    {
+        Applience applience = _demoHome.Appliences.Find(a => a.Name == applianceName);
+        if (applience != null)
+        {
+            applience.Stop();
+        }
+
+        else
+        {
+            Room r = _demoHome.Rooms.Find(r => r.Name == roomName);
+            applience = r.Appliences.Find(a => a.Name == applianceName);
+            applience.Stop();
+        }
+
+        var status = _demoHome.GetStatus();
+        return Json(status);
+
+    }
+
+    
+
 }

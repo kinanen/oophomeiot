@@ -18,12 +18,39 @@ public class HeaterController : Controller
     public IActionResult AddHeater(string roomName)
     {
         Heater newHeater;
-
         Room room = _demoHome.Rooms.Find(r => r.Name == roomName);
-
         newHeater = new Heater(room);
 
         var status = _demoHome.GetStatus();
         return Json(status);
     }
+
+    [HttpPost]
+    public IActionResult SetTemperature(string roomName, int temperature)
+    {
+        Room room = _demoHome.Rooms.Find(r => r.Name == roomName);
+        room.Heater.SetTemperature(temperature);
+        var status = _demoHome.GetStatus();
+        return Json(status);
+    }
+    
+    [HttpPost]
+    public IActionResult HeaterTurnOn(string roomName)
+    {
+        Room room = _demoHome.Rooms.Find(r => r.Name == roomName);
+        room.Heater.HeaterOn();
+        var status = _demoHome.GetStatus();
+        return Json(status);
+    }
+
+        
+    [HttpPost]
+    public IActionResult HeaterTurnOff(string roomName)
+    {
+        Room room = _demoHome.Rooms.Find(r => r.Name == roomName);
+        room.Heater.HeaterOff();
+        var status = _demoHome.GetStatus();
+        return Json(status);
+    }
+
 }
