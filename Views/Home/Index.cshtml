@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+</head>
+<body>
+
+    <h1>Otso Kinanen Home IOT</h1>
+    <div id="status"></div>
+    <form id="Add">
+        <label for="class-select">Choose class to add </label>
+        <select name="class" id="class-select">
+            <option value="home">Home</option>
+            <option value="room">Room</option>
+            <option value="applience">Applienece</option>
+            <option value="door">Door</option>
+            <option value="heater">Heater</option>
+            <option value="light">Light</option>
+            <option value="temperaturemMeter">Temperature Meter</option>
+            <option value="blinds">Blinds</option>
+        </select>
+        <button id="addSelected" onclick="addSelected">Lisää Koti</button>
+    </form>
+    <script src="/js/site.js"></script>
+</body> 
