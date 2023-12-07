@@ -7,9 +7,9 @@ namespace HomeIOT
 	{
 		public Home	Home { get; private set; }
 		public string Name { get; private set; }
+		public Heater? Heater { get; set; }
 		public TemperatureMeter TemperatureMeter { get; private set; }
 		public List<Applience> Appliences { get; private set; } = new List<Applience>();
-		public List<Heater> Heater { get; private set; } = new List<Heater>();
 		public List<Light> Lights { get; private set; } = new List<Light>();
 		public List<Blinds> Blinds { get; set; } = new();
 		

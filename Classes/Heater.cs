@@ -13,6 +13,7 @@ namespace HomeIOT
 		public Heater(Room room)
 		{
 			Room = room;
+			Room.Heater = this;
 			Temp = Room.GetTemperature();
 			HeatingOn = false;
 		}
@@ -65,7 +66,7 @@ namespace HomeIOT
 
 		public override String ToString()
 		{
-			return $"Heater in {Room.Name} is set to {Temp}°c and is heating is on: {HeatingOn}";
+			return $"set to {Temp}°c and is heating is on: {HeatingOn}";
 		}
 
 	}

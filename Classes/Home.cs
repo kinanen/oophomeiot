@@ -33,8 +33,11 @@ namespace HomeIOT
 
 			foreach (Room room in Rooms)
 			{
-				
-				allRoomTemps.Add(room.NameAndTemperature());
+				String roomTemp = room.NameAndTemperature();
+				if(room.Heater != null){
+					roomTemp += $" Heater: {room.Heater}";
+				}
+				allRoomTemps.Add(roomTemp);
 			}
 			return allRoomTemps;
 		}

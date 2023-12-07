@@ -18,7 +18,6 @@ namespace HomeIOT
             LightDimmable bedroomLight = new LightDimmable("Bedroom Light", bedroom);
             Heater bedroomHeater = new Heater(bedroom);
             Heater livingRoomHeater = new Heater(livingRoom);
-            Heater kitchenHeater = new Heater(kitchen);
             Applience Tv = new("TV", livingRoom);
             KitchenApplience coffeeMaker = new KitchenApplience("Coffee Maker", kitchen);
             ColdApplience fridge = new ColdApplience("Fridge", kitchen);

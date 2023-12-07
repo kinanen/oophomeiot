@@ -8,7 +8,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly Home _demoHome;
-        public HomeController(ILogger<HomeController> logger, Home demoHome)
+    public HomeController(ILogger<HomeController> logger, Home demoHome)
     {
         _logger = logger;
         _demoHome = demoHome;
@@ -16,8 +16,28 @@ public class HomeController : Controller
 
     public IActionResult GetHomeStatus()
     {
-       
+
         List<string> status = _demoHome.GetStatus();
+        return Json(status);
+    }
+
+    public IActionResult GetTemperatures()
+    {
+        List<string> temperatures = _demoHome.GetAllRoomTemperatures();
+        return Json(temperatures);
+    }
+
+    public IActionResult GetHome()
+    {
+        return Json(_demoHome);
+    }
+
+    [HttpPost]
+    [HttpPost]
+    public IActionResult AddRoom(string roomName)
+    {
+        Room newRoom = new(roomName, _demoHome);
+        var status = _demoHome.GetStatus();
         return Json(status);
     }
 

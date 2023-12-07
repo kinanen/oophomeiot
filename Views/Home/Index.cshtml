@@ -3,25 +3,29 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/css/site.css">
+    
     
 </head>
 <body>
 
     <h1>Otso Kinanen Home IOT</h1>
     <div id="status"></div>
+    <div id="temperature"></div>
     <form id="Add">
         <label for="class-select">Choose class to add </label>
         <select name="class" id="class-select">
-            <option value="home">Home</option>
+            <option value="select">Select</option>
             <option value="room">Room</option>
             <option value="applience">Applienece</option>
             <option value="door">Door</option>
             <option value="heater">Heater</option>
             <option value="light">Light</option>
-            <option value="temperaturemMeter">Temperature Meter</option>
             <option value="blinds">Blinds</option>
         </select>
-        <button id="addSelected" onclick="addSelected">Lisää Koti</button>
+        <button id="addSelected">Add</button>
     </form>
     <script src="/js/site.js"></script>
+    <form id="new">
+    </form>
 </body> 
