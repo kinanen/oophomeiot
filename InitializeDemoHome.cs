@@ -35,7 +35,6 @@ namespace HomeIOT
             ColdApplience freezer = new ColdApplience("Freezer", kitchen);
             fridge.Stop();
 
-
             return home;
         }
     }
