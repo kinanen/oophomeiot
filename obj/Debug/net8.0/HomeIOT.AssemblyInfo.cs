@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HomeIOT")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+16099bb123850e534f96655cd420fdaa97dfe902")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06f9b3a0bbaa6c995631b7c7e4b33ff444984a1d")]
 [assembly: System.Reflection.AssemblyProductAttribute("HomeIOT")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HomeIOT")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

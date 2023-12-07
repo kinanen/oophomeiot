@@ -27,16 +27,66 @@ public class HomeController : Controller
         return Json(temperatures);
     }
 
+    public IActionResult GetRooms()
+    {
+        List<string> rooms = new();
+        foreach (Room r in _demoHome.Rooms)
+        {
+            rooms.Add(r.Name);
+        }
+        return Json(rooms);
+
+    }
+
     public IActionResult GetHome()
     {
         return Json(_demoHome);
     }
 
     [HttpPost]
-    [HttpPost]
     public IActionResult AddRoom(string roomName)
     {
         Room newRoom = new(roomName, _demoHome);
+        var status = _demoHome.GetStatus();
+        return Json(status);
+    }
+
+    [HttpPost]
+    public IActionResult AddDoor(string doorName)
+    {
+        Door newDoor = new(doorName, _demoHome);
+        var status = _demoHome.GetStatus();
+        return Json(status);
+    }
+
+    [HttpPost]
+    public IActionResult AddAppliance(string roomName, string applianceType, string applianceName)
+    {
+        Applience newAppliance;
+        if (roomName.Equals("HouseAppliance"))
+        {
+            newAppliance = new Applience(applianceName, _demoHome);
+        }
+        
+        else
+        {
+            Room room = _demoHome.Rooms.Find(r => r.Name == roomName);
+
+            switch (applianceType)
+            {
+                case "kitchen":
+                    newAppliance = new KitchenApplience(applianceName, room);
+                    break;
+                case "cold":
+                    newAppliance = new ColdApplience(applianceName, room);
+                    break;
+                default:
+                    newAppliance = new Applience(applianceName, room);
+                    break;
+            }
+        }
+
+
         var status = _demoHome.GetStatus();
         return Json(status);
     }
