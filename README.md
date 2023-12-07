@@ -1,4 +1,4 @@
-Otso Kinanen Olio-ohjelmointi kurssin harjoitustyö
+##Otso Kinanen Olio-ohjelmointi kurssin harjoitustyö
 
 Työ on kotiautomaatio järjestelmä, joka on toteutettu C# kielellä ja siihen on toteutettu JavaScriptillä yksinkerainen web-käyttöliittymä. Tämä siksi, että omasta kömpelöstä työkaluvalinnasta johtuen ei C# työpöytäsovelluksen tekeminen ollutkaan niin yksinkertaista. Käyttöliittymän ohjelmointi on laitteiden hallinnan osalta jäänyt kesken.
 
